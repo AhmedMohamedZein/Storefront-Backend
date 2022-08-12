@@ -20,3 +20,6 @@ app.get('/', (req: express.Request , res: express.Response ) => {
 app.listen( address , function () {
     console.log(`starting app on: ${address}`)
 });
+
+
+export default app ;
