@@ -1,11 +1,12 @@
 import { Application , Request , Response } from "express";
 import { Product , productsConnectionDB } from "../modules/products";
 import { idValidation , nameAndPriceValidation } from "../validation/products.validate.input";
+import authorization from '../auth/authorization';
 const productHandler = async ( app : Application ) => {
     
     app.get( '/products' , index);
     app.get('/products/:id' , idValidation , show );
-    app.post('/products' ,nameAndPriceValidation ,create);
+    app.post('/products' , authorization ,nameAndPriceValidation ,create);
 }
 async function index (req : Request , res : Response ) : Promise<void> {
    
