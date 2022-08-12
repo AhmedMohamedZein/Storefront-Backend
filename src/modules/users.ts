@@ -1,6 +1,7 @@
 import client from "../database";
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 dotenv.config();
 type Users = {
     id ?: string ,
@@ -30,12 +31,12 @@ class usersConnectionDB {
         try { 
             const conn = await client.connect() ;
             const sql = 'SELECT * FROM users WHERE id = $1';
-            const allProduct = await client.query (sql, [ id ] );
+            const allUsers = await client.query (sql, [ id ] );
             conn.release();
-            if (!allProduct.rows) {
+            if (!allUsers.rows) {
                 throw new Error ('there is no user with this ID !');
             }
-            return allProduct.rows[0] ;
+            return allUsers.rows[0] ;
         }catch (error){
             console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
             return new Error (`error message : ${error}`) ;
@@ -45,12 +46,15 @@ class usersConnectionDB {
     async create ( firstName : string , lastName : string , password : string ) : Promise<void | unknown> {
         try { 
             // hashing the password using pepper and salt 
-            password =  await bcrypt.hash (password + process.env.PEPPER , parseInt ( process.env.SALT as string ) );
+            const temPasssword = password ;
+            password = await bcrypt.hash (temPasssword + process.env.PEPPER , parseInt ( process.env.SALT as string ) );
             //
             const conn = await client.connect() ;
             const sql = 'INSERT INTO users (firstName , lastName, password) VALUES ($1, $2 ,$3)';
             await client.query (sql, [firstName , lastName , password] );
+            const token = await jwt.sign({ firstName: firstName , lastName : lastName}, process.env.SECRET as string);
             conn.release();
+            return token ;
         }catch (error){
             console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
             return new Error ('create problem') ;
