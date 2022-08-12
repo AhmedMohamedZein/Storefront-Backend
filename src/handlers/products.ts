@@ -47,7 +47,7 @@ async function create ( req : Request , res : Response ) : Promise<void> {
     try {
         const product = new productsConnectionDB ();
         await product.create( requestData.name as string , requestData.price as number );
-        res.status(200).end();
+        res.status(201).end();
         return;
     }catch(error){
         res.status(500).json(error).end();
