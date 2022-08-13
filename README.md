@@ -39,7 +39,7 @@
       
  6. `npm run migrateDown` : 
  
-       ill migrate the database down
+       Will migrate the database down
        
       
  ##  Documentation
