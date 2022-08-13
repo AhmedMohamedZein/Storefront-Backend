@@ -6,11 +6,13 @@
   "scripts": {
     "build": "rm -rf ./build/ && npx tsc",
     "dev": "nodemon src/server.ts",
-    "start": "npm run build && node ./build/server.js",
+    "createDB" : "db-migrate db:create testdb --env test",
+    "dropDB" : "db-migrate db:drop testdb --env test",
+    "start": "npm run createDB && npm run migrateUp &&npm run build && node ./build/server.js",
     "jasmine": "jasmine",
-    "test": "npm run migrateUp && npm run build && npm run jasmine",
-    "migrateUp": "db-migrate up --env test",
-    "migrateDown": "db-migrate down --env test"
+    "test": "npm run createDB && npm run build && npm run jasmine && npm run dropDB",
+    "migrateUp": "db-migrate up --env testMigration",
+    "migrateDown": "db-migrate down --env testMigration"
   },
   "author": "AhmedZein",
   "license": "ISC",

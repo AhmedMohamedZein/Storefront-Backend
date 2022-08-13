@@ -3,8 +3,13 @@
         "driver" : "pg",
         "host": { "ENV" : "POSTGRES_HOST" },
         "user": { "ENV" : "POSTGRES_USER"},
-        "password" : {"ENV" : "POSTGRES_PASSWORD" },
-        "database" : { "ENV" : "POSTGRES_DB_TEST"} 
+        "password" : {"ENV" : "POSTGRES_PASSWORD" }
+    },
+    "testMigration" : {
+        "driver" : "pg",
+        "host": { "ENV" : "POSTGRES_HOST" },
+        "user": { "ENV" : "POSTGRES_USER"},
+        "password" : {"ENV" : "POSTGRES_PASSWORD" } ,
+        "database" : { "ENV" : "POSTGRES_DB_TEST"  }
     }
-
 }
