@@ -35,37 +35,38 @@ describe('Products End-Point', () => {
                 expect ( responseObject ).toBeDefined();
             });
         });
+        describe('Products Module { Database integration process }  ', () => {  
+            let conn : PoolClient ;
+            let  allProduct : QueryResult ;
+            beforeAll( async () =>{
+                conn = await client.connect() ;
+            });
+            it ('check the return of the index function', async()=>{
+                try { 
+                    const sql = 'SELECT * FROM products';
+                    allProduct = await client.query (sql);
+                }catch(error){
+                    console.log (error);
+                }
+                const responseObject = await store.index() ;
+                expect ( responseObject ).toEqual(allProduct.rows as Product[]);
+            });
+            it ('check the return of the show function', async()=>{
+                try { 
+                    const sql = 'SELECT * FROM products WHERE id = $1';
+                    allProduct = await client.query (sql, [ '1' ] );
+                }catch(error){
+                    console.log (error);
+                }
+                const responseObject = await store.show('1') ;
+                expect ( responseObject ).toEqual(allProduct.rows[0] as Product);
+            });
+            afterAll (async () => {
+                conn.release();
+            })
+        });
     });
-    describe('Products Module { Database integration process }  ', () => {  
-        let conn : PoolClient ;
-        let  allProduct : QueryResult ;
-        beforeAll( async () =>{
-            conn = await client.connect() ;
-        });
-        it ('check the return of the index function', async()=>{
-            try { 
-                const sql = 'SELECT * FROM products';
-                allProduct = await client.query (sql);
-            }catch(error){
-                console.log (error);
-            }
-            const responseObject = await store.index() ;
-            expect ( responseObject ).toEqual(allProduct.rows as Product[]);
-        });
-        it ('check the return of the show function', async()=>{
-            try { 
-                const sql = 'SELECT * FROM products WHERE id = $1';
-                allProduct = await client.query (sql, [ '1' ] );
-            }catch(error){
-                console.log (error);
-            }
-            const responseObject = await store.show('1') ;
-            expect ( responseObject ).toEqual(allProduct.rows[0] as Product);
-        });
-        afterAll (async () => {
-            conn.release();
-        })
-    });   
+   
 });
 
 
