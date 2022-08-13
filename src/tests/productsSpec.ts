@@ -63,7 +63,7 @@ describe('Products End-Point', () => {
             });
             afterAll (async () => {
                 conn.release();
-            })
+            });
         });
     });
    

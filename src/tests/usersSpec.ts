@@ -57,6 +57,9 @@ describe('Users end-point', () => {
                 const responseObject = await store.show('1') ;
                 expect ( responseObject ).toEqual(allProduct.rows[0] as Users);
             });
+            afterAll (async () => {
+                conn.release();
+            });
         });
     });
 
