@@ -23,7 +23,7 @@ class usersConnectionDB {
             }
             return allUsers.rows ;
         }catch (error){
-            console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
+        //    console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
             return new Error (`error message : ${error}`) ;
         }
     }
@@ -38,7 +38,7 @@ class usersConnectionDB {
             }
             return allUsers.rows[0] ;
         }catch (error){
-            console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
+          //  console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
             return new Error (`error message : ${error}`) ;
         }
     }
@@ -56,7 +56,7 @@ class usersConnectionDB {
             conn.release();
             return token ;
         }catch (error){
-            console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
+           // console.log ( `error happen in the usersDB class in the index function, error : ${error}`);
             return new Error ('create problem') ;
         } 
     } 

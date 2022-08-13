@@ -19,7 +19,7 @@ class productsOrder {
             }
             return allOrders.rows ;
         }catch (error){
-            console.log ( `error happen in the productsOrder class in the show function, error : ${error}`);
+          //  console.log ( `error happen in the productsOrder class in the show function, error : ${error}`);
             return new Error (`error message : ${error}`) ;
         }
     }

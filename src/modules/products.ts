@@ -19,7 +19,7 @@ class productsConnectionDB {
             }
             return allProduct.rows ;
         }catch (error){
-            console.log ( `error happen in the productDB class in the index function, error : ${error}`);
+            //console.log ( `error happen in the productDB class in the index function, error : ${error}`);
             return new Error (`error message : ${error}`) ;
         }
     }
@@ -34,7 +34,7 @@ class productsConnectionDB {
             }
             return allProduct.rows[0] ;
         }catch (error){
-            console.log ( `error happen in the productDB class in the show function, error : ${error}`);
+           // console.log ( `error happen in the productDB class in the show function, error : ${error}`);
             return new Error (`error message : ${error}`) ;
         }
     }
@@ -46,7 +46,7 @@ class productsConnectionDB {
             await client.query (sql, [name , price] );
             conn.release();
         }catch (error){
-            console.log ( `error happen in the productDB class in the index function error : ${error}`);
+            //console.log ( `error happen in the productDB class in the index function error : ${error}`);
             return new Error ('create problem') ;
         } 
     } 

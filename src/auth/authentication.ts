@@ -28,7 +28,7 @@ export default async function authentication (req : Request , res : Response , n
         res.status(200).send('a token has been sent in the headers').end();
         return;
     }catch (error){
-        console.log (` ${error}` );
+    //    console.log (` ${error}` );
         res.status(400).json('Bad Request invalide username or password ').end();
         return;
     }
@@ -42,7 +42,7 @@ async function bcryptPassword( password:string , user : QueryResult ) : Promise<
         else 
             return false ;
     }catch (error){
-        console.log (` ${error}` );
+   //     console.log (` ${error}` );
         return new Error ('bcryptPassword error');
     }
 }
