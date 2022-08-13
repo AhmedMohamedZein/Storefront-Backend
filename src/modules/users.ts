@@ -46,9 +46,9 @@ class usersConnectionDB {
     async create ( firstName : string , lastName : string , password : string ) : Promise<void | unknown> {
         try { 
             // hashing the password using pepper and salt 
-            const temPasssword = password ;
-            password = await bcrypt.hash (temPasssword + process.env.PEPPER , parseInt ( process.env.SALT as string ) );
-            //
+            const saltRounds = await bcrypt.genSalt( parseInt ( process.env.SALT_ROUNDS as string ) ) ;
+            password = await bcrypt.hash ( password , saltRounds);
+            
             const conn = await client.connect() ;
             const sql = 'INSERT INTO users (firstName , lastName, password) VALUES ($1, $2 ,$3)';
             await client.query (sql, [firstName , lastName , password] );

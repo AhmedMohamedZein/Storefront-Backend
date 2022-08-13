@@ -1,12 +1,12 @@
 import { Application , Request , Response } from "express";
 import { Product , productsConnectionDB } from "../modules/products";
 import { idValidation , nameAndPriceValidation } from "../validation/products.validate.input";
-import authorization from '../auth/authorization';
-const productHandler = async ( app : Application ) => {
+import decideMiddleware from "../auth/decideMiddleware";
+const productHandler = async ( app : Application ) : Promise<void> => {
     
     app.get( '/products' , index);
     app.get('/products/:id' , idValidation , show );
-    app.post('/products' , authorization ,nameAndPriceValidation ,create);
+    app.post('/products' , decideMiddleware ,nameAndPriceValidation ,create);
 }
 async function index (req : Request , res : Response ) : Promise<void> {
    
@@ -47,7 +47,8 @@ async function create ( req : Request , res : Response ) : Promise<void> {
     try {
         const product = new productsConnectionDB ();
         await product.create( requestData.name as string , requestData.price as number );
-        res.status(201).end();
+        const payload = res.locals.payload ;
+        res.status(201).send(payload).end();
         return;
     }catch(error){
         res.status(500).json(error).end();

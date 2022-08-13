@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import dotenv from 'dotenv';
 import productHandler from './handlers/products'
 import usersHandler from './handlers/users';
+import ordersHandlers from './handlers/orders';
 dotenv.config();
 const app: express.Application = express();
 
@@ -12,7 +13,7 @@ app.use( bodyParser.json() );
 
 productHandler(app);
 usersHandler(app);
-
+ordersHandlers(app);
 app.get('/', (req: express.Request , res: express.Response ) => {
     res.send('Hello World!');
 });

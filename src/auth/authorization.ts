@@ -11,7 +11,7 @@ export default async function authorization (req : Request , res : Response , ne
     try {
         const payload = await jwt.verify (token as string , process.env.SECRET as string ) ;
         // the token is valid and the user is authorized
-        res.locals.payload = payload ;
+         res.locals.payload = payload ;
         next();
     }catch (error) {
         console.log ( `error happend in the authorization function, error : ${error}`);
