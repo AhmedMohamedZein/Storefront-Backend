@@ -6,13 +6,11 @@
   "scripts": {
     "build": "rm -rf ./build/ && npx tsc",
     "dev": "nodemon src/server.ts",
-    "createDB" : "db-migrate db:create testdb --env test",
-    "dropDB" : "db-migrate db:drop testdb --env test",
-    "start": "npm run createDB && npm run migrateUp &&npm run build && node ./build/server.js",
+    "start": "npm run migrateUp && npm run build && node ./build/server.js",
     "jasmine": "jasmine",
-    "test": "npm run createDB && npm run migrateUp && npm run build && npm run jasmine && npm run dropDB",
-    "migrateUp": "db-migrate up --env testMigration",
-    "migrateDown": "db-migrate down --env testMigration"
+    "test": "npm run migrateUp && npm run build && npm run jasmine && npm run migrateDown",
+    "migrateUp": "db-migrate up --env test",
+    "migrateDown": "db-migrate down --env test"
   },
   "author": "AhmedZein",
   "license": "ISC",
@@ -23,6 +21,7 @@
     "express": "^4.18.1",
     "jasmine": "^4.3.0",
     "jsonwebtoken": "^8.5.1",
+    "node_env": "0.0.3",
     "pg": "^8.7.3"
   },
   "devDependencies": {
