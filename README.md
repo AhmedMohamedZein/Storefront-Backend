@@ -5,15 +5,18 @@
 - This project was made for an education purpose, we can say that this project is a backend for an online store.
 - Create database schema using migration.
 - You sholud use the end-point `HTTP1.1  POST   /user` to create a user this method will return a token you can use it later.
-- You should have a environment variables that have the following :
-       ` POSTGRES_HOST `
-       ` POSTGRES_USER `
-       ` POSTGRES_PASSWORD `
-       ` POSTGRES_DB_DEV `
-        `SALT ` for hashing password
-       ` PEPPER ` the hashing secret
-       `SECRET` for token signature
-       and finally a `PORT` 
+      
+ ## Environment variables :
+     
+     1. ` POSTGRES_HOST ` : Where is your database, { "localhost","127.0.0.1" } ? or in somewhere else. 
+     2. ` POSTGRES_USER ` : this user should have permission to read and write on the given database.
+     3.  ` POSTGRES_PASSWORD ` : user's password.
+     4.  ` POSTGRES_DB_DEV ` :  development database.
+     5.  ` POSTGRES_DB_TEST ` : test database.
+     6.  `SALT ` : for salt rounds.
+     7. ` PEPPER ` : the hashing secret.
+     8. `SECRET` :  for token signature, JWT.
+     9. `PORT` : you can leave it empty the server will run default on port 8000.
  
  ## Scripts
  
@@ -33,19 +36,11 @@
         
         Will compile the typescript into javascript 'build the production file .js', without running anything.
  
- 5. `npm run createDB` :
-      
-      Will create a database called testdb
- 
- 6. `npm run dropDB` :
-      
-      Will drop a database called testdb
- 
- 7. `npm run migrateUp` : 
+ 5. `npm run migrateUp` : 
  
       Will migrate the database up
       
- 8. `npm run migrateDown` : 
+ 6. `npm run migrateDown` : 
  
        Will migrate the database down
        
