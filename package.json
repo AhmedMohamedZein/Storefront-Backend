@@ -8,9 +8,9 @@
     "dev": "nodemon src/server.ts",
     "start": "npm run migrateUp && npm run build && node ./build/server.js",
     "jasmine": "jasmine",
-    "test": "npm run migrateUp && npm run build && npm run jasmine",
+    "test": "npm run migrateUp && npm run build && npm run jasmine && npm run migrateDown",
     "migrateUp": "db-migrate up --env test",
-    "migrateDown": "db-migrate down --env test"
+    "migrateDown": "db-migrate reset --env test"
   },
   "author": "AhmedZein",
   "license": "ISC",
