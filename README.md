@@ -6,23 +6,40 @@
 - Create database schema using migration.
 - You sholud use the end-point `HTTP1.1  POST   /user` to create a user this method will return a token you can use it later.
       
- ## Environment variables :
+      
+ ## Environment variables 
+       
+     1. POSTGRES_HOST : Where is your database, { "localhost","127.0.0.1" } ? or in somewhere else. 
      
-     1. ` POSTGRES_HOST ` : Where is your database, { "localhost","127.0.0.1" } ? or in somewhere else. 
-     2. ` POSTGRES_USER ` : this user should have permission to read and write on the given database.
-     3.  ` POSTGRES_PASSWORD ` : user's password.
-     4.  ` POSTGRES_DB_DEV ` :  development database.
-     5.  ` POSTGRES_DB_TEST ` : test database.
-     6.  `SALT ` : for salt rounds.
-     7. ` PEPPER ` : the hashing secret.
-     8. `SECRET` :  for token signature, JWT.
-     9. `PORT` : you can leave it empty the server will run default on port 8000.
- 
+     
+     2. POSTGRES_USER : this user should have permission to read and write on the given database.
+     
+     
+     3. POSTGRES_PASSWORD : user's password.
+     
+     
+     4. POSTGRES_DB_DEV :  development database.
+     
+     
+     5. POSTGRES_DB_TEST : test database.
+     
+     
+     6. SALT: for salt rounds.
+     
+     
+     7. PEPPER : the hashing secret.
+     
+     
+     8. SECRET :  for token signature, JWT.
+     
+     
+     9. PORT : you can leave it empty the server will run default on port 8000.
+     
  ## Scripts
  
  1.  `npm run test` : 
 
-       Will create a database called testdb then migrate:up all data  then compile the typescript into javascript 'build the production file .js' then test it using jasnime and in the end it will db:drop   
+       Will migrate:up all data  then compile the typescript into javascript 'build the production file .js' then test it using jasnime and in the end it will migrate:down the database.   
 
   2. `npm run dev` :   
 
@@ -30,7 +47,7 @@
          
   3. `npm run start`  :
   
-        Will create a database called testdb then migrate:up all data then compile the typescript into javascript 'build the production file .js' then starts the server
+        Will migrate:up all the data then compile the typescript into javascript 'build the production file .js' then starts the server
    
   4. `npm run build` :
         
