@@ -9,31 +9,31 @@
       
  ## Environment variables 
        
-     1. POSTGRES_HOST : Where is your database, { "localhost","127.0.0.1" } ? or in somewhere else. 
+- `POSTGRES_HOST` : Where is your database, { "localhost","127.0.0.1" } ? or in somewhere else. 
      
      
-     2. POSTGRES_USER : this user should have permission to read and write on the given database.
+ - `POSTGRES_USER` : this user should have permission to read and write on the given database.
      
      
-     3. POSTGRES_PASSWORD : user's password.
+ - `POSTGRES_PASSWORD` : user's password.
      
      
-     4. POSTGRES_DB_DEV :  development database.
+ - `POSTGRES_DB_DEV` :  development database.
      
      
-     5. POSTGRES_DB_TEST : test database.
+ - `POSTGRES_DB_TEST` : test database.
      
      
-     6. SALT: for salt rounds.
+ - `SALT`: for salt rounds.
      
      
-     7. PEPPER : the hashing secret.
+ - `PEPPER` : the hashing secret.
      
      
-     8. SECRET :  for token signature, JWT.
+ - `SECRET` :  for token signature, JWT.
      
      
-     9. PORT : you can leave it empty the server will run default on port 8000.
+ - `PORT` : you can leave it empty the server will run default on port 8000.
      
  ## Scripts
  
