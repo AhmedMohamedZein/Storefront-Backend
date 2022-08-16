@@ -6,6 +6,3 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (firstName , lastName, password ) VALUES ('Ahmed' , 'Zein', 'mockpwd1');
-INSERT INTO users (firstName , lastName, password ) VALUES ('Omnia' , 'Zein', 'mockpwd2');
-INSERT INTO users (firstName , lastName, password ) VALUES ('Mohamed' , 'Zein', 'mockpwd3');

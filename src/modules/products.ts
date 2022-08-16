@@ -39,7 +39,7 @@ class productsConnectionDB {
         }
     }
     // TO call this function you need to be verified
-    async create ( name : string , price : number ) : Promise<void | unknown> {
+    async create ( name : string , price : number ) : Promise<void | Error> {
         try { 
             const conn = await client.connect() ;
             const sql = 'INSERT INTO products (name , price) VALUES ($1, $2)';

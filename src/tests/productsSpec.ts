@@ -3,6 +3,7 @@ import app from '../server';
 import {productsConnectionDB , Product} from '../modules/products';
 import client from "../database";
 import { PoolClient , QueryResult } from "pg";
+
 const response = supertest(app);
 const store = new productsConnectionDB() ;
 
@@ -30,10 +31,6 @@ describe('Products End-Point', () => {
                 const responseObject = await store.index() ;
                 expect ( responseObject ).toBeDefined();
             });
-            it ('check if the show function is declared', async()=>{
-                const responseObject = await store.show('1') ;
-                expect ( responseObject ).toBeDefined();
-            });
         });
         describe('Products Module { Database integration process }  ', () => {  
             let conn : PoolClient ;
@@ -44,7 +41,7 @@ describe('Products End-Point', () => {
             it ('check the return of the index function', async()=>{
                 try { 
                     const sql = 'SELECT * FROM products';
-                    allProduct = await client.query (sql);
+                    allProduct = await conn.query (sql);
                 }catch(error){
                     console.log (error);
                 }
@@ -54,35 +51,30 @@ describe('Products End-Point', () => {
             it ('check the return of the show function', async()=>{
                 try { 
                     const sql = 'SELECT * FROM products WHERE id = $1';
-                    allProduct = await client.query (sql, [ '1' ] );
+                    allProduct = await conn.query (sql, [ '1' ] );
                 }catch(error){
                     console.log (error);
                 }
                 const responseObject = await store.show('1') ;
                 expect ( responseObject ).toEqual(allProduct.rows[0] as Product);
-            });
-            // we will create a product using a token
-            it ('check the return of the create function', async()=>{
-                const product_demo : Product = {
-                    name : 'house',
-                    price :500000
-                }
-                await store.create( product_demo.name as string, product_demo.price as number) ;
-                try { 
-                    const sql = 'SELECT * FROM products WHERE name=$1 AND price =$2';
-                    allProduct = await client.query (sql, [product_demo.name , product_demo.price]);
-                }catch(error){
-                    console.log (error);
-                }
-                expect ( product_demo ).toEqual( { name : allProduct.rows[0].name , price : allProduct.rows[0].price } );
-            });
-            
+            });   
             afterAll (async () => {
                 conn.release();
             });
         });
     });
-   
+    describe('Products authorization required routes', ()=>{
+        let token : string ;    
+        beforeAll (async () => {
+            const responseObject = await response.post('/users').send({firstName : 'Udacity' , lastName : 'course' , password : "Big tech company"});
+            token = responseObject.headers['authorization'].split(" ")[1];
+        });
+        it('Create a product using a token { the create function }' , async () =>{
+            const responseObject = await response.post('/products').set({ Authorization : `Bearer ${ token }` }).send( { name : "Udacity_coupon" , price : 40 } );
+            expect(responseObject.status).toEqual(201);
+        });      
+    });
+
 });
 
 

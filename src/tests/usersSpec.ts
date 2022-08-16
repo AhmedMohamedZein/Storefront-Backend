@@ -10,7 +10,7 @@ describe('Users end-point', () => {
     
     describe('Users HTTP 1.1 status codes', () => {
         it('Create a user function 200' , async () => {
-            const responseObject = await response.post('/users').send({firstName : 'Mohamed' , lastName : 'Zein' , password : "01120273779"});
+            const responseObject = await response.post('/users').send({firstName : 'Udacity' , lastName : 'tech' , password : "ssss"});
             expect( responseObject.status).toEqual(200);
         });
     });
@@ -26,7 +26,7 @@ describe('Users end-point', () => {
                 expect ( responseObject ).toBeDefined();
             });
             it ('check if the show function is declared', async()=>{
-                const responseObject = await store.create( 'Mohamed' , 'Zein' ,'01120273779') ;
+                const responseObject = await store.create( 'Mohamed' , 'Zein' ,'asdasd9') ;
                 expect ( responseObject ).toBeDefined();
             });
         });
@@ -61,6 +61,23 @@ describe('Users end-point', () => {
                 conn.release();
             });
         });
+    });
+    describe('Users authorization required routes', ()=>{
+        let token: string;
+        beforeAll (async () => {
+
+            const responseObject = await response.post('/users').send({firstName : 'Netflix' , lastName : 'tech' , password : "2022"});
+            token = responseObject.headers['authorization'].split(" ")[1];
+      
+        });
+        it('Get all the users { the index function }' , async () =>{
+            const responseObject = await response.get('/users').set({ Authorization : `Bearer ${ token }` });
+            expect(responseObject.status).toEqual(200);
+        }) ;
+        it('Get a specific user { the show function }' , async () =>{
+            const responseObject = await response.get('/users/1').set({ Authorization : `Bearer ${ token }` });
+            expect(responseObject.status).toEqual(200);
+        }) ;  
     });
 
 });

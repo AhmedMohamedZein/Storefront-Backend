@@ -1,29 +1,27 @@
 import client from '../database';
-type Orders = {
-    id ?: string ,
-    status ?: string,
-    products ?: string[]
-};
 
 class productsOrder {
 
     // show will return the orders for this specific user using id 
-    async show (id : string ) : Promise<Orders[] | Error> {
-        try { 
+    async create (user_id : string , product_id : string) : Promise<void | Error> {
+    
+        try{
             const conn = await client.connect() ;
-            const sql = 'SELECT firstName,lastName,price,status FROM orders INNER JOIN productsOrdersJoinTable ON orders.id = productsOrdersJoinTable.order_id  INNER JOIN products ON products.id = productsOrdersJoinTable.product_id INNER JOIN users ON orders.user_id = users.id WHERE users.id = $1 ';
-            const allOrders = await client.query (sql, [ id ] );
-            conn.release();
-            if (!allOrders.rows) {
-                throw new Error ('there is no user with this ID !');
-            }
-            return allOrders.rows ;
-        }catch (error){
-          //  console.log ( `error happen in the productsOrder class in the show function, error : ${error}`);
-            return new Error (`error message : ${error}`) ;
+            let sql = 'INSERT INTO orders (status , user_id) VALUES ($1,$2)';
+            await client.query (sql, [ 'active' , user_id ]);
+            sql = 'SELECT id FROM orders WHERE user_id=$1';
+            const order_id = await client.query (sql, [ user_id ]);
+            sql = 'INSERT INTO productsOrdersJoinTable (order_id , product_id) VALUES ($1,$2)';
+            await client.query (sql, [ order_id.rows[0].id , product_id ]);
+            conn.release();   
+            return;
+        }
+        catch (error) {
+        //    console.log (`error in the productsOrder class create function ${error}`);
+            return new Error (`error happened ${error}`);
         }
     }
 }
 
 
-export {Orders ,  productsOrder} ;
+export { productsOrder } ;
