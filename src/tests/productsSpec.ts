@@ -61,6 +61,22 @@ describe('Products End-Point', () => {
                 const responseObject = await store.show('1') ;
                 expect ( responseObject ).toEqual(allProduct.rows[0] as Product);
             });
+            // we will create a product using a token
+            it ('check the return of the create function', async()=>{
+                const product_demo : Product = {
+                    name : 'house',
+                    price :500000
+                }
+                await store.create( product_demo.name as string, product_demo.price as number) ;
+                try { 
+                    const sql = 'SELECT * FROM products WHERE name=$1 AND price =$2';
+                    allProduct = await client.query (sql, [product_demo.name , product_demo.price]);
+                }catch(error){
+                    console.log (error);
+                }
+                expect ( product_demo ).toEqual( { name : allProduct.rows[0].name , price : allProduct.rows[0].price } );
+            });
+            
             afterAll (async () => {
                 conn.release();
             });
