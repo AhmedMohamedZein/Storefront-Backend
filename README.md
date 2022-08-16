@@ -62,7 +62,11 @@
  
        Will migrate the database down
        
-    
+
+## Notes that 
+
+- the database default port is 5432.
+
 ##  How to use 
 
 1. You need to create a token using the `/users` POST.
