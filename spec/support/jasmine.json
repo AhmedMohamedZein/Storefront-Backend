@@ -1,7 +1,10 @@
 {
     "spec_dir": "build/tests",
     "spec_files": [
-        "**/*[sS]pec.js"
+        "productsSpec.js",
+        "ordersSpec.js",
+        "usersSpec.js",
+        "authorization.authenticationSpec.js"
     ],
     "helpers": [
         "helpers/**/*.js"
