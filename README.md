@@ -35,6 +35,7 @@
      
  - `PORT` : you can leave it empty the server will run default on port 8000.
      
+     
  ## Scripts
  
  1.  `npm run test` : 
@@ -61,7 +62,14 @@
  
        Will migrate the database down
        
-      
+    
+##  How to use 
+
+1. You need to create a token using the `/users` POST.
+2. Use this token to create a products from the `/products` POST.
+3. Then use the token to create an order from the `/orders/user_id/product_id` POST.
+4. Then you can get the order data or the products
+    
  ##  Documentation
  
   | End-point         | Method               | Requirements                   | Responses   
