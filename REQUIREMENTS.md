@@ -27,11 +27,15 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+![products](https://user-images.githubusercontent.com/74258945/185106776-81f2a1db-36f0-4469-b3da-0b2a379ce3ad.png)
+
 #### User
 - id
 - firstName
 - lastName
 - password
+
+![users table ](https://user-images.githubusercontent.com/74258945/185106640-b29e752f-ee06-44d1-b4a5-ec260ee47c6a.png)
 
 #### Orders
 - id
@@ -39,3 +43,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+![orders](https://user-images.githubusercontent.com/74258945/185106886-0f539b35-8224-4c88-b00a-8e823a33d0b7.png)
+
+
+#### Products-Orders   [Many-to-Many-relation]
+- order_id
+- product_id
+ 
+![productsordersjointable](https://user-images.githubusercontent.com/74258945/185106950-5d6dd3b2-adaa-40b6-97c0-5a00e1aedbf4.png)
+

@@ -35,6 +35,7 @@
      
  - `PORT` : you can leave it empty the server will run default on port 8000.
      
+     
  ## Scripts
  
  1.  `npm run test` : 
@@ -61,18 +62,32 @@
  
        Will migrate the database down
        
-      
+
+## Notes that 
+
+- the database default port is 5432.
+
+##  How to use 
+
+1. You need to create a token using the `/users` POST.
+2. Use this token to create a products from the `/products` POST.
+3. Then use the token to create an order from the `/orders/user_id/product_id` POST.
+4. Then you can get the order data or the products
+    
  ##  Documentation
  
   | End-point         | Method               | Requirements                   | Responses   
   | ------------------|----------------------|--------------------------------|----------------------------------------------|
   | `/products`       | GET                  |  none                        |- `status 200` with all the products in the db. <br /> -  `status 500` server error and a error message server error
-  | `/products/id`    | GET                 | a id input params URL         |- `status 200` with the required product from the db <br /> - `status 400` bad request if the id is not an intger
+  | `/products/:id`    | GET                 | a id input params URL         |- `status 200` with the required product from the db <br /> - `status 400` bad request if the id is not an intger
   | `/products`       | POST                |  requests a body and a token or login info in the body, example <br /> {  <br /> 'name' : 'car', <br /> 'price' : 2000 <br /> } <br  /> OR {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> } | - `status 201` product has beed created with the payload of your token <br />-`status 400` bad request if the input data invalide or the token invalide <br />-`status 500` server error and a error message
   | `/users`          | GET                  | token or a login info in the body <br  />  {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> }                        | - `status 200` with all users in the db. <br />  -  `status 500` server error and a error message server error  <br />  - `status 400` bad request if the input data invalide or the token invalide <br />-`status 500` server error and a error message
   | `/users/:id`      | GET                   | token or a login info in the body <br  />  {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> }                         | - `status 200` with the required user from the db <br /> - `status 400` bad request if the id is not an intger <br />-`status 500` server error and a error message
   | `/users`          | POST                  | {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  />}                          |  - `status 201` user has beed created  <br />-`status 400` bad request if the input data invalide <br />-`status 500` server error and a error message
+  | `/orders` | GET | token or a login info in the body  <br  />  {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> } | `status 200` with the required data from the db <br /> -`status 500` server error and a error message|
   | `/orders/:id`     | GET                  | token or a login info in the body <br  />  {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> }  |  - `status 200` with the required data from the db <br /> - `status 400` bad request if the id is not an intger  <br />-`status 500` server error and a error message
+  | `/orders/:user_id/:product_id` | POST | token |  - `status 201` order has beed created  <br />-`status 400` bad request if the input data invalide <br />-`status 500` server error and a error message
+   
  
   
  
