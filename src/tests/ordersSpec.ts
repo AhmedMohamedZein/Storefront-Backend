@@ -45,7 +45,27 @@ describe('Orders End-Point', () => {
                     console.log (error);
                 }
                 const responseObject = await ordersConnection.show('1') ;
-                expect ( responseObject ).toEqual( allOrders.rows[0] as Orders );
+                expect ( responseObject ).toEqual( allOrders.rows[0] );
+            });
+            it ('check the return of the index function', async()=>{
+                try { 
+                    const sql = 'SELECT orders.id , products.name ,products.price , orders.status , users.firstName FROM orders INNER JOIN users ON users.id = orders.user_id INNER JOIN productsOrdersJoinTable ON productsOrdersJoinTable.order_id = orders.id INNER JOIN products ON products.id = productsOrdersJoinTable.product_id ORDER BY orders.id';
+                    allOrders = await conn.query (sql);
+                }catch(error){
+                    console.log (error);
+                }
+                const responseObject = await ordersConnection.index() ;
+                expect ( responseObject ).toEqual( allOrders.rows );
+            });
+            it ('check the return of the create function', async()=>{
+                await productsOrdersConnection.create('1','1') ;
+                try { 
+                    const sql = 'SELECT * FROM productsOrdersJoinTable WHERE order_id=$1 AND product_id=$2';
+                    allOrders = await conn.query (sql, ['1','1']);
+                }catch(error){
+                    console.log (error);
+                }
+                expect(allOrders).toBeTruthy();
             });
             afterAll (async () => {
                 conn.release();

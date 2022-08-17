@@ -57,6 +57,16 @@ describe('Products End-Point', () => {
                 }
                 const responseObject = await store.show('1') ;
                 expect ( responseObject ).toEqual(allProduct.rows[0] as Product);
+            }); 
+            it ('check the return of the create function', async()=>{
+                await store.create('car',50000) ;
+                try { 
+                    const sql = 'SELECT * FROM products WHERE name=$1 AND price=$2';
+                    allProduct = await conn.query (sql, [ 'car' , 50000] );
+                }catch(error){
+                    console.log (error);
+                }
+                expect(allProduct).toBeTruthy();
             });   
             afterAll (async () => {
                 conn.release();

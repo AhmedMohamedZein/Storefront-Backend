@@ -33,29 +33,40 @@ describe('Users end-point', () => {
 
         describe('Users Module { Database integration process }  ', () => {
             let conn : PoolClient ;
-            let  allProduct : QueryResult ;
+            let  allUsers : QueryResult ;
             beforeAll( async () =>{
                 conn = await client.connect() ;
             });
             it ('check the return of the index function', async()=>{
                 try { 
                     const sql = 'SELECT * FROM users';
-                    allProduct = await client.query (sql);
+                    allUsers = await client.query (sql);
                 }catch(error){
                     console.log (error);
                 }
                 const responseObject = await store.index() ;
-                expect ( responseObject ).toEqual(allProduct.rows as Users[]);
+                expect ( responseObject ).toEqual(allUsers.rows as Users[]);
             });
             it ('check the return of the show function', async()=>{
                 try { 
                     const sql = 'SELECT * FROM users WHERE id = $1';
-                    allProduct = await client.query (sql, [ '1' ] );
+                    allUsers = await client.query (sql, [ '1' ] );
                 }catch(error){
                     console.log (error);
                 }
                 const responseObject = await store.show('1') ;
-                expect ( responseObject ).toEqual(allProduct.rows[0] as Users);
+                expect ( responseObject ).toEqual(allUsers.rows[0] as Users);
+            });
+            it ('check the return of the create function', async()=>{
+                await store.create('Ahmed','zein','udacity') ;
+                try { 
+                    const sql = 'SELECT * FROM users WHERE firstName=$1 AND lastName=$2';
+                    allUsers = await client.query (sql, [ 'Ahmed','zein'] );
+                }catch(error){
+                    console.log (error);
+                }
+                
+                expect ( allUsers ).toBeTruthy();
             });
             afterAll (async () => {
                 conn.release();

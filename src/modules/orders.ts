@@ -26,7 +26,7 @@ class ordersConnnectionDB {
             return new Error (`error happened ${error}`);
         }
     }
-    async show (id : string) : Promise<Orders | Error> {
+    async show (id : string) : Promise<QueryResult | Error> {
         try{
             const conn = await client.connect() ;
             const sql = 'SELECT * FROM orders where id =$1';
