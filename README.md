@@ -3,7 +3,7 @@
 ## Overview
  
 - This project was made for an education purpose, we can say that this project is a backend for an online store.
-- Create database schema using migration.
+- Creating a database schema using migration.
 - You sholud use the end-point `HTTP1.1  POST   /user` to create a user this method will return a token you can use it later.
       
       
@@ -79,7 +79,7 @@
   | End-point         | Method               | Requirements                   | Responses   
   | ------------------|----------------------|--------------------------------|----------------------------------------------|
   | `/products`       | GET                  |  none                        |- `status 200` with all the products in the db. <br /> -  `status 500` server error and a error message server error
-  | `/products/:id`    | GET                 | a id input params URL         |- `status 200` with the required product from the db <br /> - `status 400` bad request if the id is not an intger
+  | `/products/:id`    | GET                 | an id input params URL         |- `status 200` with the required product from the db <br /> - `status 400` bad request if the id is not an intger
   | `/products`       | POST                |  requests a body and a token or login info in the body, example <br /> {  <br /> 'name' : 'car', <br /> 'price' : 2000 <br /> } <br  /> OR {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> } | - `status 201` product has beed created with the payload of your token <br />-`status 400` bad request if the input data invalide or the token invalide <br />-`status 500` server error and a error message
   | `/users`          | GET                  | token or a login info in the body <br  />  {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> }                        | - `status 200` with all users in the db. <br />  -  `status 500` server error and a error message server error  <br />  - `status 400` bad request if the input data invalide or the token invalide <br />-`status 500` server error and a error message
   | `/users/:id`      | GET                   | token or a login info in the body <br  />  {  <br /> 'firstName' : 'Ahmed', <br /> 'lastName' : "Zein" <br /> "password" : "22233" <br  /> }                         | - `status 200` with the required user from the db <br /> - `status 400` bad request if the id is not an intger <br />-`status 500` server error and a error message
